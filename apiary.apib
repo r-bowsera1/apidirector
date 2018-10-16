@@ -25,24 +25,14 @@ Get all accounts for a given client.
         ]
         
 ## Account [/accounts/{system%2Did}/{client%2Did}/{account%2Did}]
-View, update, create or delete an AccessOne account.
+Create, view, update or delete an AccessOne account.
 
 + Parameters
     + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
     + client%2Did (string) - Client Identifier
     + account%2Did (string) - AccessOne Account Number
 
-### View Account [GET]
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "foo": "value"
-            }
-        ]
-
-### Update Account [PATCH]
+### Create Account [POST]
 
 + Request (application/json)
 
@@ -62,7 +52,17 @@ View, update, create or delete an AccessOne account.
                 "foo": "value"
             }
 
-### Create Account [POST]
+### View Account [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+### Update Account [PATCH]
 
 + Request (application/json)
 
@@ -96,15 +96,41 @@ Guarantor contains demographic information about an AccessOne account holder.
     + client%2Did (string) - Client Identifier
     + account%2Did (string) - AccessOne Account Number
 
+### Create Guarantor [POST]
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+            
+            Location: /guarantors/bz/1/1234
+
 ### View Guarantor [GET]
 
 + Response 200 (application/json)
 
-        [
-            {
-                "foo": "value"
-            }
-        ]
+        {
+            "foo": "value"
+        }
+
+### Update Guarantor [PATCH]
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+
++ Response 204 (application/json)
+
+    + Headers
+            
+            Location: /guarantors/bz/1/1234
 
 # Group Notifications
 
@@ -263,3 +289,51 @@ View all payment history for a given AccessOne account.
         ]
 
 # Group Users
+
+## User [/users/{system%2Did}/{user%2Did}]
+Create, view, update or delete an online user account.
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + user%2Did (string) - User identifier
+
+### Create User [POST]
+
++ Response 204 (application/json)
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + user%2Did (string) - User identifier
+
+### View User [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+### Update User [PATCH]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + user%2Did (string) - User identifier
+
++ Response 204 (application/json)
+
+### Delete User [DELETE]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + user%2Did (string) - User identifier
+
++ Response 204 (application/json)
+
+## Activate User [/users/activate/{system%2Did}/{user%2Did}]
+Activate a user's online account.
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + user%2Did (string) - User identifier
