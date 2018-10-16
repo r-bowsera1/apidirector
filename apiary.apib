@@ -1,0 +1,265 @@
+FORMAT: 1A
+HOST: http://director.myaccessone.com/
+
+# AccessOne Director
+
+The AccessOne Director is a full service API for performing internal & external tasks for both Blaze and Pharos platforms.
+
+# Group Accounts
+
+## Account Collection [/accounts/{system%2Did}/{client%2Did}]
+Get all accounts for a given client.
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+
+### Get All Accounts [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+        
+## Account [/accounts/{system%2Did}/{client%2Did}/{account%2Did}]
+View, update, create or delete an AccessOne account.
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+
+### View Account [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+### Update Account [PATCH]
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+        
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /accounts/bz/1/7890
+            
+    + Body
+    
+            {
+                "foo": "value"
+            }
+
+### Create Account [POST]
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+        
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /accounts/bz/1/7890
+            
+    + Body
+    
+            {
+                "foo": "value"
+            }
+
+### Delete Account [DELETE]
+
++ Response 204 (application/json)
+
+# Group Guarantors
+
+## Guarantor [/guarantors/{system%2Did}/{client%2Did}/{account%2Did}]
+Guarantor contains demographic information about an AccessOne account holder.
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+
+### View Guarantor [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+# Group Notifications
+
+## Activation Notification [/notifications/activate/{system%2Did}/{client%2Did}/{account%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+
+### Send Activation [POST]
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+        
++ Response 200 (application/json)
+
+## Payment Reminder Notification [/notifications/payment/{system%2Did}/{client%2Did}/{account%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+
+### Send Payment Reminder [POST]
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+        
++ Response 200 (application/json)
+
+## Payment Receipt Notification [/notifications/receipt/{system%2Did}/{client%2Did}/{account%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+
+### Send Payment Receipt [POST]
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+        
++ Response 200 (application/json)
+
+# Group Patients
+
+## Patient Collection [/patients/{system%2Did}/{client%2Did}/{account%2Did}]
+View all patient accounts for a given AccessOne account.
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+
+### View Patients [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+## Patient [/patients/{system%2Did}/{client%2Did}/{account%2Did}/{patient%2Did}]
+Patient contains demographic information about hospital/physician accounts for a Guarantor. 
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+    + patient%2Did (string) - Patient Identifier (assigned by AccessOne, this is not the hospital account number)
+
+### View Patient [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+### Update Patient [PATCH]
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+        
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /patients/bz/1/7890/1111
+            
+    + Body
+    
+            {
+                "foo": "value"
+            }
+
+### Create Patient [POST]
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+        
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /patients/bz/1/7890/1111
+            
+    + Body
+    
+            {
+                "foo": "value"
+            }
+
+### Delete Patient [DELETE]
+
++ Response 204 (application/json)
+
+# Group Payments
+
+## Payments Collection [/payments/{system%2Did}/{client%2Did}/{account%2Did}]
+View all payment history for a given AccessOne account.
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+
+### View Payments [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+# Group Users
