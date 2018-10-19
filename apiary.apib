@@ -7,32 +7,15 @@ The AccessOne Director is a full service API for performing internal & external 
 
 # Group Accounts
 
-## Account Collection [/accounts/{system%2Did}/{client%2Did}]
-Get all accounts for a given client.
+## Account Collection [/a-accounts/{system%2Did}/{client%2Did}?{s}]
 
 + Parameters
     + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
     + client%2Did (string) - Client Identifier
-
-### Get All Accounts [GET]
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "foo": "value"
-            }
-        ]
-        
-## Account [/accounts/{system%2Did}/{client%2Did}/{account%2Did}]
-Create, view, update or delete an AccessOne account.
-
-+ Parameters
-    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
-    + client%2Did (string) - Client Identifier
-    + account%2Did (string) - AccessOne Account Number
+    + s (string, optional) - Search Criteria
 
 ### Create Account [POST]
+Create an AccessOne account.
 
 + Request (application/json)
 
@@ -44,7 +27,7 @@ Create, view, update or delete an AccessOne account.
 
     + Headers
     
-            Location: /accounts/bz/1/7890
+            Location: /a-accounts/bz/1/2
             
     + Body
     
@@ -52,7 +35,8 @@ Create, view, update or delete an AccessOne account.
                 "foo": "value"
             }
 
-### View Account [GET]
+### View Accounts [GET]
+Get all accounts for a given client.
 
 + Response 200 (application/json)
 
@@ -61,6 +45,22 @@ Create, view, update or delete an AccessOne account.
                 "foo": "value"
             }
         ]
+        
+## Account [/a-accounts/{system%2Did}/{client%2Did}/{account%2Did}]
+View, update or delete an AccessOne account.
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+
+### View Account [GET]
+
++ Response 200 (application/json)
+
+        {
+            "foo": "value"
+        }
 
 ### Update Account [PATCH]
 
@@ -70,11 +70,11 @@ Create, view, update or delete an AccessOne account.
             "foo": "value"
         }
         
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
     + Headers
     
-            Location: /accounts/bz/1/7890
+            Location: /a-accounts/bz/1/2
             
     + Body
     
@@ -86,17 +86,146 @@ Create, view, update or delete an AccessOne account.
 
 + Response 204 (application/json)
 
-# Group Guarantors
+# Group Clients
 
-## Guarantor [/guarantors/{system%2Did}/{client%2Did}/{account%2Did}]
-Guarantor contains demographic information about an AccessOne account holder.
+## Clients Collection [/clients/{system%2Did}{?s}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. User bz for Blaze. Use ph for Pharos.
+    + s (string, optional) - Search Criteria
+
+### Create Client [POST]
+Create a client on Blaze or Pharos.
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /clients/bz/1
+    
+    + Body
+        
+            {
+                "foo": "value"
+            }
+
+### View Clients [GET]
+View all clients for Blaze or Pharos.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+## Client [/clients/{system%2Did}/{client%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+
+### View Client [GET]
+View details of a client.
+
++ Response 200 (application/json)
+
+        {
+            "foo": "value"
+        }
+
+### Update Client [PATCH]
+Update details of a client.
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+            
+            Location: /clients/bz/1
+            
+    + Body
+
+            {
+                "foo": "value"
+            }
+
+# Group Events
+
+## Events Collection [/events/{system%2Did}/{client%2Did}/{account%2Did}{?s}]
 
 + Parameters
     + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
     + client%2Did (string) - Client Identifier
     + account%2Did (string) - AccessOne Account Number
+    + s (string, optional) - Search Criteria
 
-### Create Guarantor [POST]
+### Create Account Events [POST]
+Create events for an account.
+
++ Request (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+        
++ Response 204
+
+### Get Account Events [GET]
+View all events for an account.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+## Event [/events/{system%2Did}/{client%2Did}/{account%2Did}/{event%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+    + event%2Did (string) - Event Identifier
+
+### View Event [GET]
+View details of an event.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+# Group Persons
+
+## Persons Collection [/persons/{system%2Did}/{client%2Did}{?s}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + s (string, optional) - Search Criteria
+
+### Create Person [POST]
+Add a person to AccessOne.
 
 + Request (application/json)
 
@@ -108,9 +237,34 @@ Guarantor contains demographic information about an AccessOne account holder.
 
     + Headers
             
-            Location: /guarantors/bz/1/1234
+            Location: /persons/bz/1/1234
+            
+    + Body
+    
+            {
+                "foo": "value"
+            }
 
-### View Guarantor [GET]
+### View Persons [GET]
+View all persons.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+## Person [/persons/{system%2Did}/{client%2Did}/{account%2Did}]
+Person contains demographic information about an account holder.
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+
+### View Person [GET]
 
 + Response 200 (application/json)
 
@@ -118,7 +272,7 @@ Guarantor contains demographic information about an AccessOne account holder.
             "foo": "value"
         }
 
-### Update Guarantor [PATCH]
+### Update Person [PATCH]
 
 + Request (application/json)
 
@@ -130,18 +284,19 @@ Guarantor contains demographic information about an AccessOne account holder.
 
     + Headers
             
-            Location: /guarantors/bz/1/1234
+            Location: /persons/bz/1/1234
 
 # Group Notifications
 
-## Activation Notification [/notifications/activate/{system%2Did}/{client%2Did}/{account%2Did}]
+## Notification [/notifications/{system%2Did}/{client%2Did}/{account%2Did}/{notificationtype%2Did}]
 
 + Parameters
     + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
     + client%2Did (string) - Client Identifier
     + account%2Did (string) - AccessOne Account Number
+    + notificationtype%2Did (string) - Notification Type Identifier
 
-### Send Activation [POST]
+### Send Notification [POST]
 
 + Request (application/json)
 
@@ -149,41 +304,15 @@ Guarantor contains demographic information about an AccessOne account holder.
             "foo": "value"
         }
         
++ Response 204
+
+### View Notification [GET]
+
 + Response 200 (application/json)
-
-## Payment Reminder Notification [/notifications/payment/{system%2Did}/{client%2Did}/{account%2Did}]
-
-+ Parameters
-    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
-    + client%2Did (string) - Client Identifier
-    + account%2Did (string) - AccessOne Account Number
-
-### Send Payment Reminder [POST]
-
-+ Request (application/json)
 
         {
             "foo": "value"
         }
-        
-+ Response 200 (application/json)
-
-## Payment Receipt Notification [/notifications/receipt/{system%2Did}/{client%2Did}/{account%2Did}]
-
-+ Parameters
-    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
-    + client%2Did (string) - Client Identifier
-    + account%2Did (string) - AccessOne Account Number
-
-### Send Payment Receipt [POST]
-
-+ Request (application/json)
-
-        {
-            "foo": "value"
-        }
-        
-+ Response 200 (application/json)
 
 # Group Patients
 
@@ -288,6 +417,114 @@ View all payment history for a given AccessOne account.
             }
         ]
 
+# Group Providers
+
+## Providers Collection [/providers/{system%2Did}/{client%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. User bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+
+### Create Provider [POST]
+Create a provider on a Blaze or Pharos client.
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /providers/bz/1/2
+    
+    + Body
+    
+            {
+                "foo": "value"
+            }
+
+### View Providers [GET]
+View all providers for a Blaze or Pharos client.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+## Provider [/providers/{system%2Did}/{client%2Did}/{provider%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + provider%2Did (string) - Provider Identifier
+
+### View Provider [GET]
+View details of a provider.
+
++ Response 200 (application/json)
+
+        {
+            "foo": "value"
+        }
+
+### Update Provider [PATCH]
+Update details of a provider.
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+
++ Response 204
+
+# Group Provider Accounts
+
+## Provider Account Collection [/p-accounts/{system%2Did}/{client%2Did}/{account%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+
+### Get Provider Accounts [GET]
+View all provider accounts for an AccessOne account.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+### Create Provider Account [POST]
+Create a provider account for an AccessOne account.
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+            
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /a-accounts/bz/1/2/3
+            
+    + Body
+    
+            {
+                "foo": "value"
+            }
+
 # Group Transactions
 
 ## Transaction Collection [/transactions/{system%2Did}/{client%2Did}]
@@ -311,7 +548,7 @@ Submit a batch of transactions.
 
     + Headers
         
-            Location: /transactions/1/2/3
+            Location: /transactions/bz/2/3
 
 ## Batch Collection [/transactions/{system%2Did}/{client%2Did}/{batch%2Did}]
 
