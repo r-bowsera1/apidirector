@@ -39,7 +39,7 @@ Create, view, update or delete an AccessOne account.
         {
             "foo": "value"
         }
-        
+
 + Response 201 (application/json)
 
     + Headers
@@ -287,6 +287,77 @@ View all payment history for a given AccessOne account.
                 "foo": "value"
             }
         ]
+
+# Group Transactions
+
+## Transaction Collection [/transactions/{system%2Did}/{client%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+
+### Create Transactions [POST]
+Submit a batch of transactions.
+
++ Request (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
++ Response 201 (application/json)
+
+    + Headers
+        
+            Location: /transactions/1/2/3
+
+## Batch Collection [/transactions/{system%2Did}/{client%2Did}/{batch%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + batch%2Did (string ) - Batch Identifier
+
+### View Batch [GET]
+View a batch of transactions.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+## Transaction [/transactions/{system%2Did}/{client%2Did}/{transaction%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + transaction%2Did (string ) - Transaction Identifier
+
+### View Transaction [GET]
+View a single transaction.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+        
+### Update Transaction [PATCH]
+Update a single transaction.
+
++ Response 204 (application/json)
+
+### Delete Transaction [DELETE]
+Delete a single transaction.
+
++ Response 204 (applicatin/json)
 
 # Group Users
 
