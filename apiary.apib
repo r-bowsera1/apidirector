@@ -215,6 +215,62 @@ View details of an event.
             }
         ]
 
+# Group Notifications
+
+## Notifications Collection [/notifications/{system%2Did}/{client%2Did}/{account%2Did}/{notificationtype%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+    + notificationtype%2Did (string) - Notification Type Identifier
+
+### Send Notification [POST]
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+        
++ Response 204
+
+## Notification [/notifications/{system%2Did}/{client%2Did}/{account%2Did}/{notificationtype%2Did}/{notification%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+    + notificationtype%2Did (string) - Notification Type Identifier
+    + notification%2Did (string) - Notification Identifier
+
+### View Notification [GET]
+
++ Response 200 (application/json)
+
+        {
+            "foo": "value"
+        }
+
+# Group Options
+Options are static items used in the creation of AccessOne objects.
+
+## Options Collection [/options/{system%2Did}/{option%2Dtype}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + option%2Dtype (string) - Type of option set to retrieve
+
+### Get Options [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
 # Group Persons
 
 ## Persons Collection [/persons/{system%2Did}/{client%2Did}{?s}]
@@ -285,34 +341,6 @@ Person contains demographic information about an account holder.
     + Headers
             
             Location: /persons/bz/1/1234
-
-# Group Notifications
-
-## Notification [/notifications/{system%2Did}/{client%2Did}/{account%2Did}/{notificationtype%2Did}]
-
-+ Parameters
-    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
-    + client%2Did (string) - Client Identifier
-    + account%2Did (string) - AccessOne Account Number
-    + notificationtype%2Did (string) - Notification Type Identifier
-
-### Send Notification [POST]
-
-+ Request (application/json)
-
-        {
-            "foo": "value"
-        }
-        
-+ Response 204
-
-### View Notification [GET]
-
-+ Response 200 (application/json)
-
-        {
-            "foo": "value"
-        }
 
 # Group Patients
 
@@ -525,6 +553,102 @@ Create a provider account for an AccessOne account.
                 "foo": "value"
             }
 
+## Provider Account [/p-accounts/{system%2Did}/{client%2Did}/{account%2Did}/{provider%2daccount%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+    + provider%2daccount%2Did (string) - Provider Account Number
+
+### Update Provider Account [PATCH]
+Update a provider account.
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+
++ Response 204
+
+### Delete Provider Account [DELETE]
+Delete a provider account.
+
++ Response 204
+
+# Group Settings
+AccessOne Application Settings
+
+## Processing Rules Collection [/settings/procrules/{system%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+
+### Create Processing Rule [POST]
+Create a new processing rule.
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+        
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /settings/procrules/bz/1
+            
+    + Body
+    
+            {
+                "foo": "value"
+            }
+
+### View Processing Rules [GET]
+View all processing rules.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "foo": "value"
+            }
+        ]
+
+## Processing Rule [/settings/procrules/{system%2Did}/{rule%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+    + rule%2Did (string) - Processing Rule Identifier.
+
+## Transaction Codes [/settings/trancodes/{system%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
+
+### Create Transaction Code [POST]
+Create a new transaction code.
+
++ Request (application/json)
+
+        {
+            "foo": "value"
+        }
+        
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /settings/procrules/bz/1
+            
+    + Body
+    
+            {
+                "foo": "value"
+            }
+
 # Group Transactions
 
 ## Transaction Collection [/transactions/{system%2Did}/{client%2Did}]
@@ -568,11 +692,12 @@ View a batch of transactions.
             }
         ]
 
-## Transaction [/transactions/{system%2Did}/{client%2Did}/{transaction%2Did}]
+## Transaction [/transactions/{system%2Did}/{client%2Did}/{batch%2Did}/{transaction%2Did}]
 
 + Parameters
     + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
     + client%2Did (string) - Client Identifier
+    + batch%2Did (string) - Batch Identifier
     + transaction%2Did (string ) - Transaction Identifier
 
 ### View Transaction [GET]
