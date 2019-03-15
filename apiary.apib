@@ -3,29 +3,78 @@ HOST: http://director.myaccessone.com/
 
 # AccessOne Director
 
-The AccessOne Director is a full service API for performing internal & external tasks for both Blaze and Pharos platforms.
+The AccessOne Director is a full service API for performing internal & external tasks for all AccessOne platforms.
 
 # Group Accounts
+AccessOne accounts
 
-## Account Collection [/a-accounts/{system%2Did}/{client%2Did}?{s}]
+## Account Collection [/v1/a-accounts/{system%2Did}/{client%2Did}?{s}]
 
 + Parameters
     + system%2Did (string) - System Identifier
         + bz (Blaze)
         + ph (Pharos)
     + client%2Did (string) - Client Identifier
-    + s (string, optional) - Search Criteria
+    + s (string, optional) - Search Value
+        + AccessOne account number - ?s=1234567890
+        + Provider account number - ?s=0987654321
+        + Full name (First+Last) - ?s=Jane+Doe
 
 ### Create Account [POST]
 Create an AccessOne account.
 
-+ Request (application/json)
++ Request
 
         {
-            "foo": "value"
+            "guarantor": {
+                "firstName":"",
+                "lastName":"",
+                "dateOfBirth":"",
+                "address": {
+                    "address1":"",
+                    "address2":"",
+                    "address3":"",
+                    "city":"",
+                    "state":"",
+                    "zipCode":"",
+                    "county":"",
+                    "country":""
+                },
+                "contact": [
+                       {
+                        "type":"email",
+                        "value":""
+                       },
+                       {
+                        "type":"phone",
+                        "value":""
+                       },
+                       {
+                        "type":"mobile",
+                        "value":""
+                       },
+                       {
+                        "type":"sms",
+                        "value":""
+                       },
+                ]
+            },
+            "providerAccounts": [
+                {
+                    "facilityId":0,
+                    "providerAccountNumber":"",
+                    "providerAccountBalance":0,
+                    "firstName":"",
+                    "lastName":"",
+                    "dateOfBirth":""
+                }
+            ],
+            "totalAmount":0,
+            "program":"Choice/HChoice/Flex/HFlex/Outreach/HOutreach",
+            "activationPreference":"mail/email/phone/mobile/sms"
         }
 
-+ Response 201 (application/json)
++ Response 201
 
     + Headers
     
@@ -34,21 +83,221 @@ Create an AccessOne account.
     + Body
     
             {
-                "foo": "value"
+                "clientId": 1,
+                "account": {
+                    "id": 2,
+                    "number": "987654321",
+                    "status": "Pending Activation"
+                },
+                "guarantor": {
+                    "firstName": "Jane",
+                    "lastName": "Plain",
+                    "dateOfBirth": "1980-01-01T00:00:00",
+                    "address": {
+                        "address1": "200 Main St.",
+                        "address2": "Bldg 55",
+                        "address3": "Unit B",
+                        "city": "Gastonia",
+                        "state": "NC",
+                        "zipCode": "28000",
+                        "county": null,
+                        "country": null
+                    },
+                    "contact": [
+                        {
+                            "type": 0,
+                            "value": "janeplain000@mailinator.com"
+                        },
+                        {
+                            "type": 3,
+                            "value": "333-333-3333"
+                        }
+                    ]
+                },
+                "providerAccounts": [
+                    {
+                        "facility": {
+                            "id": 2,
+                            "name": "East"
+                        },
+                        "providerAccountId": 20,
+                        "providerAccountNumber": "456FIXFIXFIX",
+                        "firstName": "Lane",
+                        "lastName": "Plain",
+                        "dateOfBirth": "2004-02-02T00:00:00"
+                    }
+                ]
             }
 
 ### View Accounts [GET]
 Get all accounts for a given client.
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
-                "foo": "value"
+                "clientId": 1,
+                "account": {
+                    "id": 1,
+                    "number": "123456789",
+                    "status": "Pending Activation"
+                },
+                "guarantor": {
+                    "firstName": "Jack",
+                    "lastName": "Black",
+                    "dateOfBirth": "1990-01-01T00:00:00",
+                    "address": {
+                        "address1": "100 Main St.",
+                        "address2": "Bldg 44",
+                        "address3": "Unit A",
+                        "city": "Charlotte",
+                        "state": "NC",
+                        "zipCode": "28203",
+                        "county": null,
+                        "country": null
+                    },
+                    "contact": [
+                        {
+                            "type": 0,
+                            "value": "jackblack000@mailinator.com"
+                        },
+                        {
+                            "type": 2,
+                            "value": "555-555-5555"
+                        }
+                    ]
+                },
+                "providerAccounts": [
+                    {
+                        "facility": {
+                            "id": 1,
+                            "name": "North"
+                        },
+                        "providerAccountId": 10,
+                        "providerAccountNumber": "ABC123",
+                        "firstName": "Zach",
+                        "lastName": "Black",
+                        "dateOfBirth": "2005-02-02T00:00:00"
+                    }
+                ]
+            },
+            {
+                "clientId": 1,
+                "account": {
+                    "id": 2,
+                    "number": "987654321",
+                    "status": "Pending Activation"
+                },
+                "guarantor": {
+                    "firstName": "Jane",
+                    "lastName": "Plain",
+                    "dateOfBirth": "1980-01-01T00:00:00",
+                    "address": {
+                        "address1": "200 Main St.",
+                        "address2": "Bldg 55",
+                        "address3": "Unit B",
+                        "city": "Gastonia",
+                        "state": "NC",
+                        "zipCode": "28000",
+                        "county": null,
+                        "country": null
+                    },
+                    "contact": [
+                        {
+                            "type": 0,
+                            "value": "janeplain000@mailinator.com"
+                        },
+                        {
+                            "type": 3,
+                            "value": "333-333-3333"
+                        }
+                    ]
+                },
+                "providerAccounts": [
+                    {
+                        "facility": {
+                            "id": 2,
+                            "name": "East"
+                        },
+                        "providerAccountId": 20,
+                        "providerAccountNumber": "456FIXFIXFIX",
+                        "firstName": "Lane",
+                        "lastName": "Plain",
+                        "dateOfBirth": "2004-02-02T00:00:00"
+                    }
+                ]
             }
         ]
+
+## Account PII [/v1/a-accounts/{system%2Did}/{client%2Did}/search]
+View an AccessOne account. POST sensitive data to lookup account.
+
+### View Account - PII [POST]
+
++ Request
+
+        {
+            "firstName":"",
+            "lastName":"",
+            "dateOfBirth":""
+        }
+
++ Response 200
+
+        {
+            "clientId": 1,
+            "account": {
+                "id": 1,
+                "number": "123456789",
+                "status": "Pending Activation"
+            },
+            "guarantor": {
+                "firstName": "Jack",
+                "lastName": "Black",
+                "dateOfBirth": "1990-01-01T00:00:00",
+                "address": {
+                    "address1": "100 Main St.",
+                    "address2": "Bldg 44",
+                    "address3": "Unit A",
+                    "city": "Charlotte",
+                    "state": "NC",
+                    "zipCode": "28203",
+                    "county": null,
+                    "country": null
+                },
+                "contact": [
+                    {
+                        "type": 0,
+                        "value": "jackblack000@mailinator.com"
+                    },
+                    {
+                        "type": 2,
+                        "value": "555-555-5555"
+                    }
+                ]
+            },
+            "providerAccounts": [
+                {
+                    "facility": {
+                        "id": 1,
+                        "name": "North"
+                    },
+                    "providerAccountId": 10,
+                    "providerAccountNumber": "ABC123",
+                    "firstName": "Zach",
+                    "lastName": "Black",
+                    "dateOfBirth": "2005-02-02T00:00:00"
+                }
+            ]
+        }
+
++ Parameters
+    + system%2Did (string) - System Identifier
+        + bz (Blaze)
+        + ph (Pharos)
+    + client%2Did (string) - Client Identifier
         
-## Account [/a-accounts/{system%2Did}/{client%2Did}/{account%2Did}]
+## Account [/v1/a-accounts/{system%2Did}/{client%2Did}/{account%2Did}]
 View, update or delete an AccessOne account.
 
 + Parameters
@@ -60,21 +309,65 @@ View, update or delete an AccessOne account.
 
 ### View Account [GET]
 
-+ Response 200 (application/json)
++ Response 200
 
         {
-            "foo": "value"
+            "clientId": 1,
+            "account": {
+                "id": 1,
+                "number": "123456789",
+                "status": "Pending Activation"
+            },
+            "guarantor": {
+                "firstName": "Jack",
+                "lastName": "Black",
+                "dateOfBirth": "1990-01-01T00:00:00",
+                "address": {
+                    "address1": "100 Main St.",
+                    "address2": "Bldg 44",
+                    "address3": "Unit A",
+                    "city": "Charlotte",
+                    "state": "NC",
+                    "zipCode": "28203",
+                    "county": null,
+                    "country": null
+                },
+                "contact": [
+                    {
+                        "type": 0,
+                        "value": "jackblack000@mailinator.com"
+                    },
+                    {
+                        "type": 2,
+                        "value": "555-555-5555"
+                    }
+                ]
+            },
+            "providerAccounts": [
+                {
+                    "facility": {
+                        "id": 1,
+                        "name": "North"
+                    },
+                    "providerAccountId": 10,
+                    "providerAccountNumber": "ABC123",
+                    "firstName": "Zach",
+                    "lastName": "Black",
+                    "dateOfBirth": "2005-02-02T00:00:00"
+                }
+            ]
         }
 
 ### Update Account [PATCH]
 
-+ Request (application/json)
++ Request
 
         {
-            "foo": "value"
+            "fieldName1": "value",
+            "fieldName2": "value"
         }
         
-+ Response 200 (application/json)
++ Response 200
 
     + Headers
     
@@ -88,28 +381,30 @@ View, update or delete an AccessOne account.
 
 ### Delete Account [DELETE]
 
-+ Response 204 (application/json)
++ Response 204
 
 # Group Clients
+AccessOne clients
 
-## Clients Collection [/clients/{system%2Did}{?s}]
+## Clients Collection [/v1/clients/{system%2Did}{?s}]
 
 + Parameters
     + system%2Did (string) - System Identifier
         + bz (Blaze)
         + ph (Pharos)
-    + s (string, optional) - Search Criteria
+    + s (string, optional) - Search Value
+        + Client name - ?s=East+General+Hospital
 
 ### Create Client [POST]
 Create a client on Blaze or Pharos.
 
-+ Request (application/json)
++ Request
 
         {
             "foo": "value"
         }
 
-+ Response 201 (application/json)
++ Response 201
 
     + Headers
     
@@ -124,7 +419,7 @@ Create a client on Blaze or Pharos.
 ### View Clients [GET]
 View all clients for Blaze or Pharos.
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
@@ -132,7 +427,7 @@ View all clients for Blaze or Pharos.
             }
         ]
 
-## Client [/clients/{system%2Did}/{client%2Did}]
+## Client [/v1/clients/{system%2Did}/{client%2Did}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -143,22 +438,22 @@ View all clients for Blaze or Pharos.
 ### View Client [GET]
 View details of a client.
 
-+ Response 200 (application/json)
++ Response 200
 
         {
-            "foo": "value"
+            "clientId": 25
         }
 
 ### Update Client [PATCH]
 Update details of a client.
 
-+ Request (application/json)
++ Request
 
         {
             "foo": "value"
         }
 
-+ Response 200 (application/json)
++ Response 200
 
     + Headers
             
@@ -170,9 +465,76 @@ Update details of a client.
                 "foo": "value"
             }
 
-# Group Events
+# Group Estimates
+AccessOne Estimates
 
-## Events Collection [/events/{system%2Did}/{client%2Did}/{account%2Did}{?s}]
+## Payment Estimator v1 [/v1/estimates/{system%2Did}/{client%2Did}/{amount}]
+
++ Parameters
+    + system%2Did (string) - System Identifier
+        + bz (Blaze)
+        + ph (Pharos)
+    + client%2Did (string) - Client Identifier
+    + amount (string) - Dollar amount (decimal implied)
+
+### Get Estimate [GET]
+View results of v1 payment estimator
+
++ Response 200
+
+        [
+            {
+                "type": "Interest Free",
+                "description": "This is an interest free payment estimate.",
+                "term": 12,
+                "payment": 25.00,
+                "interest": 0
+            },
+            {
+                "type": "Interest Bearing",
+                "description": "This is an interest bearing payment estimate.",
+                "term": 24,
+                "payment": 25.00,
+                "interest": 6.0
+            }
+        ]
+
+## Payment Estimator v2 [/v2/estimates/{system%2Did}/{client%2Did}/{account%2Did}/{new%2Dcharge%2Dtotal}]
+
++ Parameters
+    + system%2Did (string) - System Identifier
+        + bz (Blaze)
+        + ph (Pharos)
+    + client%2Did (string) - Client Identifier
+    + account%2Did (string) - AccessOne Account Number
+    + new%2Dcharge%2Dtotal (string) - Sum of new charges (decimal implied)
+
+### Get Estimate [GET]
+View results of v2 payment estimator
+
++ Response 200
+
+        [
+            {
+                "type": "Interest Free",
+                "description": "This is an interest free payment estimate.",
+                "term": 12,
+                "payment": 25.00,
+                "interest": 0
+            },
+            {
+                "type": "Interest Bearing",
+                "description": "This is an interest bearing payment estimate.",
+                "term": 24,
+                "payment": 25.00,
+                "interest": 6.0
+            }
+        ]
+
+# Group Events
+All events for an AccessOne account.
+
+## Events Collection [/v1/events/{system%2Did}/{client%2Did}/{account%2Did}{?s}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -185,7 +547,7 @@ Update details of a client.
 ### Create Account Events [POST]
 Create events for an account.
 
-+ Request (application/json)
++ Request
 
         [
             {
@@ -198,7 +560,7 @@ Create events for an account.
 ### Get Account Events [GET]
 View all events for an account.
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
@@ -206,7 +568,7 @@ View all events for an account.
             }
         ]
 
-## Event [/events/{system%2Did}/{client%2Did}/{account%2Did}/{event%2Did}]
+## Event [/v1/events/{system%2Did}/{client%2Did}/{account%2Did}/{event%2Dtype}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -214,12 +576,17 @@ View all events for an account.
         + ph (Pharos)
     + client%2Did (string) - Client Identifier
     + account%2Did (string) - AccessOne Account Number
-    + event%2Did (string) - Event Identifier
+    + event%2Dtype (string) - Event Type
+        + account
+        + charge
+        + fee
+        + payment
+        + ...
 
 ### View Event [GET]
 View details of an event.
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
@@ -227,29 +594,126 @@ View details of an event.
             }
         ]
 
-# Group Notifications
+# Group Facilities
 
-## Notifications Collection [/notifications/{system%2Did}/{client%2Did}/{account%2Did}/{notification%2Dtype%2Did}]
+## Facilities Collection [/v1/facilities/{system%2Did}/{client%2Did}/{?type%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier
+        + bz (Blaze)
+        + ph (Pharos)
+    + client%2Did (string) - Client Identifier
+    + type%2Did (string, optional) - Type Identifier
+        + originator
+        + ...
+
+### Create Facility [POST]
+Create a facility on a Blaze or Pharos client.
+
++ Request
+
+        {
+            "foo": "value"
+        }
+
++ Response 201
+
+    + Headers
+    
+            Location: /facilities/bz/1/2
+    
+    + Body
+    
+            {
+                "foo": "value"
+            }
+
+### View Facilities [GET]
+View all facilities for a Blaze or Pharos client.
+
++ Response 200
+
+        [
+            {
+                "providerid": 1,
+                "providername": "Charlotte Pediatric Client"
+            },
+                        {
+                "providerid": 2,
+                "providername": "Carolinas Rehabilitation"
+            },
+                        {
+                "providerid": 3,
+                "providername": "Blue Ridge Healthcare"
+            },
+                        {
+                "providerid": 4,
+                "providername": "Carolinas HealthCare System"
+            },
+                        {
+                "providerid": 5,
+                "providername": "CHS Diabetes Care"
+            }
+        ]
+
+## Facility [/v1/facilities/{system%2Did}/{client%2Did}/{facility%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier
+        + bz (Blaze)
+        + ph (Pharos)
+    + client%2Did (string) - Client Identifier
+    + facility%2Did (string) - Facility Identifier
+
+### View Facility [GET]
+View details of a facility.
+
++ Response 200
+
+        {
+            "foo": "value"
+        }
+
+### Update Facility [PATCH]
+Update details of a facility.
+
++ Request
+
+        {
+            "foo": "value"
+        }
+
++ Response 204
+
+# Group Notifications
+Internal and external notifications. Including email, secure messaging, text messaging, etc.
+
+## Notifications Collection [/v1/notifications/{system%2Did}/{client%2Did}/{account%2Did}/{notification%2Dtype%2Did}]
 
 + Parameters
     + system%2Did (string) - System Identifier. Use bz for Blaze. Use ph for Pharos.
     + client%2Did (string) - Client Identifier
     + account%2Did (string) - AccessOne Account Number
     + notification%2Dtype%2Did (string) - Notification Type Identifier
+        + email
+        + secure-msg
+        + text-msg
+        + ...
 
 ### Send Notification [POST]
+Send a notification.
 
-+ Request (application/json)
++ Request
 
         {
             "foo": "value"
         }
         
-+ Response 200 (application/json)
++ Response 200
 
     + Headers
         
-            Location: /notifications/bz/1/2}/3/4
+            Location: /notifications/bz/1/2/email/3
             
     + Body
     
@@ -257,7 +721,7 @@ View details of an event.
                 "foo": "value"
             }
 
-## Notification [/notifications/{system%2Did}/{client%2Did}/{account%2Did}/{notification%2Dtype%2Did}/{notification%2Did}]
+## Notification [/v1/notifications/{system%2Did}/{client%2Did}/{account%2Did}/{notification%2Dtype%2Did}/{notification%2Did}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -267,20 +731,107 @@ View details of an event.
     + account%2Did (string) - AccessOne Account Number
     + notification%2Dtype%2Did (string) - Notification Type Identifier
     + notification%2Did (string) - Notification Identifier
+        + email-msg
+        + secure-msg
+        + text-msg
+        + ...
 
 ### View Notification [GET]
 
-+ Response 200 (application/json)
++ Response 200
 
         {
             "foo": "value"
         }
 
+# Group Operations
+Tasks and processes for performing day-to-day business functions.
+
+## Operation Collection [/v1/operation/{system%2Did}/{operation%2Dtype}]
+
++ Parameters
+    + system%2Did (string) - System Identifier
+        + bz (Blaze)
+        + ph (Pharos)
+    + operation%2Dtype (string) - Type of Operation
+        + acct-application
+        + acct-combo
+        + acct-link
+        + data-process-file
+        + ...
+        
+
+### Create Operation [POST]
+Initiate an operation.
+
++ Request
+
+        {
+            "foo": "value"
+        }
+
++ Response 201
+
+    + Headers
+    
+            Location: /operation/bz/acct-combo/1
+    
+    + Body
+    
+            {
+                "foo": "value"
+            }
+
+
+## Operation [/v1/operation/{system%2Did}/{operation%2Dtype}/{operation%2Did}]
+
++ Parameters
+    + system%2Did (string) - System Identifier
+        + bz (Blaze)
+        + ph (Pharos)
+    + operation%2Dtype (string) - Type of Operation
+        + acct-application
+        + acct-combo
+        + acct-link
+        + data-process-file-in
+        + data-process-file-out
+        + ...
+    + operation%2Did (string) - Operation Identifier
+
+### View Operation [GET]
+View an operation.
+
++ Response 200
+
+        {
+            "foo": "value"
+        }
+
+### Update Operation [PATCH]
+Update a pending operation.
+
++ Request
+
+        {
+            "foo": "value"
+        }
+
++ Response 200
+
+        {
+            "foo": "value"
+        }
+    
+### Delete Operation [DELETE]
+Remove/cancel an operation.
+
++ Response 204
+
 # Group Options
-Options are static items used in the creation of AccessOne objects. Such as account types, list of states, funding sources.
+Static items used in the creation of AccessOne objects. Such as account types, list of states, funding sources.
 Items needed to populate web containers (drop down lists, check/radio boxes, etc).
 
-## Options Collection [/options/{system%2Did}/{option%2Dtype}]
+## Options Collection [/v1/options/{system%2Did}/{option%2Dtype}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -290,7 +841,7 @@ Items needed to populate web containers (drop down lists, check/radio boxes, etc
 
 ### Get Options [GET]
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
@@ -300,7 +851,7 @@ Items needed to populate web containers (drop down lists, check/radio boxes, etc
 
 # Group Patients
 
-## Patient Collection [/patients/{system%2Did}/{client%2Did}/{account%2Did}]
+## Patient Collection [/v1/patients/{system%2Did}/{client%2Did}/{account%2Did}]
 View all patient accounts for a given AccessOne account.
 
 + Parameters
@@ -312,7 +863,7 @@ View all patient accounts for a given AccessOne account.
 
 ### View Patients [GET]
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
@@ -320,7 +871,7 @@ View all patient accounts for a given AccessOne account.
             }
         ]
 
-## Patient [/patients/{system%2Did}/{client%2Did}/{account%2Did}/{patient%2Did}]
+## Patient [/v1/patients/{system%2Did}/{client%2Did}/{account%2Did}/{patient%2Did}]
 Patient contains demographic information about hospital/physician accounts for a Guarantor. 
 
 + Parameters
@@ -333,7 +884,7 @@ Patient contains demographic information about hospital/physician accounts for a
 
 ### View Patient [GET]
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
@@ -343,13 +894,13 @@ Patient contains demographic information about hospital/physician accounts for a
 
 ### Update Patient [PATCH]
 
-+ Request (application/json)
++ Request
 
         {
             "foo": "value"
         }
         
-+ Response 201 (application/json)
++ Response 201
 
     + Headers
     
@@ -363,13 +914,13 @@ Patient contains demographic information about hospital/physician accounts for a
 
 ### Create Patient [POST]
 
-+ Request (application/json)
++ Request
 
         {
             "foo": "value"
         }
         
-+ Response 201 (application/json)
++ Response 201
 
     + Headers
     
@@ -383,11 +934,11 @@ Patient contains demographic information about hospital/physician accounts for a
 
 ### Delete Patient [DELETE]
 
-+ Response 204 (application/json)
++ Response 204
 
 # Group Payments
 
-## Payments Collection [/payments/{system%2Did}/{client%2Did}/{account%2Did}{?s}]
+## Payments Collection [/v1/payments/{system%2Did}/{client%2Did}/{account%2Did}{?s}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -400,13 +951,13 @@ Patient contains demographic information about hospital/physician accounts for a
 ### Create Payment [POST]
 Post a payment to an AccessOne account.
 
-+ Request (application/json)
++ Request
 
         {
             "foo": "value"
         }
 
-+ Response 200 (application/json)
++ Response 200
 
     + Headers
     
@@ -421,7 +972,7 @@ Post a payment to an AccessOne account.
 ### View Payments [GET]
 View all payment history for an AccessOne account.
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
@@ -429,7 +980,7 @@ View all payment history for an AccessOne account.
             }
         ]
 
-## Payment [/payments/{system%2Did}/{client%2Did}/{account%2Did}/{payment%2Did}]
+## Payment [/v1/payments/{system%2Did}/{client%2Did}/{account%2Did}/{payment%2Did}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -442,15 +993,16 @@ View all payment history for an AccessOne account.
 ### Update Payment [PATCH]
 Update a payment - i.e. Reverse, Cancel.
 
-+ Response 200 (application/json)
++ Response 200
 
         {
             "foo": "value"
         }
 
 # Group Persons
+Person contains demographic information about an account holder.
 
-## Persons Collection [/persons/{system%2Did}/{client%2Did}{?s}]
+## Persons Collection [/v1/persons/{system%2Did}/{client%2Did}{?s}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -458,17 +1010,20 @@ Update a payment - i.e. Reverse, Cancel.
         + ph (Pharos)
     + client%2Did (string) - Client Identifier
     + s (string, optional) - Search Criteria
+        + AccessOne account number - ?s=1234567890
+        + Provider account number - ?s=0987654321
+        + Full name (First+Last) - ?s=Jane+Doe
 
 ### Create Person [POST]
-Add a person to AccessOne.
+Add a person to an AccessOne client.
 
-+ Request (application/json)
++ Request
 
         {
             "foo": "value"
         }
 
-+ Response 201 (application/json)
++ Response 201
 
     + Headers
             
@@ -481,18 +1036,39 @@ Add a person to AccessOne.
             }
 
 ### View Persons [GET]
-View all persons.
+View all persons for a client. At least one search filter required.
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
-                "foo": "value"
+                "firstName": "Jack",
+                "lastName": "Black",
+                "dateOfBirth": "1995-02-02",
+                "address": {
+                    "address1": "123 First Ave",
+                    "address2": "Unit 3",
+                    "address3": "Apt 1B",
+                    "city": "Charlotte",
+                    "state": "NC",
+                    "zipCode": "28203",
+                    "county": "",
+                    "country": "US"
+                },
+                "contact": [
+                    {
+                        "type": 0,
+                        "value": "jblack000@mailinator.com"
+                    },
+                    {
+                        "type": 3,
+                        "value": "333-456-3333"
+                    }
+                ]
             }
         ]
 
-## Person [/persons/{system%2Did}/{client%2Did}/{account%2Did}]
-Person contains demographic information about an account holder.
+## Person [/v1/persons/{system%2Did}/{client%2Did}/{account%2Did}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -503,100 +1079,52 @@ Person contains demographic information about an account holder.
 
 ### View Person [GET]
 
-+ Response 200 (application/json)
++ Response 200
 
         {
-            "foo": "value"
+            "firstName": "Jack",
+            "lastName": "Black",
+            "dateOfBirth": "1995-02-02",
+            "address": {
+                "address1": "123 First Ave",
+                "address2": "Unit 3",
+                "address3": "Apt 1B",
+                "city": "Charlotte",
+                "state": "NC",
+                "zipCode": "28203",
+                "county": "",
+                "country": "US"
+            },
+            "contact": [
+                {
+                    "type": 0,
+                    "value": "jblack000@mailinator.com"
+                },
+                {
+                    "type": 3,
+                    "value": "333-456-3333"
+                }
+            ]
         }
 
 ### Update Person [PATCH]
 
-+ Request (application/json)
++ Request
 
         {
-            "foo": "value"
+            "field1": "value",
+            "field2": "value"
         }
 
-+ Response 204 (application/json)
++ Response 204
 
     + Headers
             
             Location: /persons/bz/1/1234
 
-# Group Providers
-
-## Providers Collection [/providers/{system%2Did}/{client%2Did}]
-
-+ Parameters
-    + system%2Did (string) - System Identifier
-        + bz (Blaze)
-        + ph (Pharos)
-    + client%2Did (string) - Client Identifier
-
-### Create Provider [POST]
-Create a provider on a Blaze or Pharos client.
-
-+ Request (application/json)
-
-        {
-            "foo": "value"
-        }
-
-+ Response 201 (application/json)
-
-    + Headers
-    
-            Location: /providers/bz/1/2
-    
-    + Body
-    
-            {
-                "foo": "value"
-            }
-
-### View Providers [GET]
-View all providers for a Blaze or Pharos client.
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "foo": "value"
-            }
-        ]
-
-## Provider [/providers/{system%2Did}/{client%2Did}/{provider%2Did}]
-
-+ Parameters
-    + system%2Did (string) - System Identifier
-        + bz (Blaze)
-        + ph (Pharos)
-    + client%2Did (string) - Client Identifier
-    + provider%2Did (string) - Provider Identifier
-
-### View Provider [GET]
-View details of a provider.
-
-+ Response 200 (application/json)
-
-        {
-            "foo": "value"
-        }
-
-### Update Provider [PATCH]
-Update details of a provider.
-
-+ Request (application/json)
-
-        {
-            "foo": "value"
-        }
-
-+ Response 204
-
 # Group Provider Accounts
 
-## Provider Account Collection [/p-accounts/{system%2Did}/{client%2Did}/{account%2Did}]
+## Provider Account Collection [/v1/p-accounts/{system%2Did}/{client%2Did}/{account%2Did}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -608,36 +1136,71 @@ Update details of a provider.
 ### Get Provider Accounts [GET]
 View all provider accounts for an AccessOne account.
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
-                "foo": "value"
+                "facilityId":0,
+                "providerAccountNumber":"",
+                "providerAccountBalance":0,
+                "firstName":"",
+                "lastName":"",
+                "dateOfBirth":"yyyy-MM-dd"
+            },
+            {
+                "facilityId":0,
+                "providerAccountNumber":"",
+                "providerAccountBalance":0,
+                "firstName":"",
+                "lastName":"",
+                "dateOfBirth":"yyyy-MM-dd"
             }
         ]
 
 ### Create Provider Account [POST]
 Create a provider account for an AccessOne account.
 
-+ Request (application/json)
++ Request
 
-        {
-            "foo": "value"
-        }
+        [
+            {
+                "facilityId":1,
+                "providerAccountNumber":"5678",
+                "providerAccountBalance":20.00,
+                "firstName":"Gertrude",
+                "lastName":"Kraft",
+                "dateOfBirth":"1950-01-22"
+            }
+        ]
             
-+ Response 201 (application/json)
++ Response 201
 
     + Headers
     
-            Location: /a-accounts/bz/1/2/3
+            Location: /p-accounts/bz/1/2
             
     + Body
     
-            {
-                "foo": "value"
-            }
+            [
+                {
+                    "facilityId":1,
+                    "providerAccountNumber":"1234",
+                    "providerAccountBalance":10.00,
+                    "firstName":"Robert",
+                    "lastName":"Kraft",
+                    "dateOfBirth":"1940-01-02"
+                },
+                {
+                    "facilityId":1,
+                    "providerAccountNumber":"5678",
+                    "providerAccountBalance":20.00,
+                    "firstName":"Gertrude",
+                    "lastName":"Kraft",
+                    "dateOfBirth":"1950-01-22"
+                }
+            ]
 
-## Provider Account [/p-accounts/{system%2Did}/{client%2Did}/{account%2Did}/{provider%2daccount%2Did}]
+## Provider Account [/v1/p-accounts/{system%2Did}/{client%2Did}/{account%2Did}/{provider%2daccount%2Did}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -650,10 +1213,11 @@ Create a provider account for an AccessOne account.
 ### Update Provider Account [PATCH]
 Update a provider account.
 
-+ Request (application/json)
++ Request
 
         {
-            "foo": "value"
+            "fieldName1": "value",
+            "fieldName2": "value"
         }
 
 + Response 204
@@ -666,91 +1230,101 @@ Delete a provider account.
 # Group Settings
 AccessOne Application Settings. Used for maintaining the AccessOne system.
 
-## Settings Collection [/settings/{system%2Did}/{setting%2Dtype}]
+## Settings Collection [/v1/settings/{system%2Did}/{setting%2Dclass}/{setting%2Dclass%2Dvalue}/{setting%2Dtype}]
 
 + Parameters
     + system%2Did (string) - System Identifier
         + bz (Blaze)
         + ph (Pharos)
+    + setting%2Dclass (string) - Setting Classification
+        + client
+        + a-account
+        + p-account
+        + user
+    + setting%2Dclass%2Dvalue - (string) Setting Classification Value
     + setting%2Dtype (string) - Setting Type.
-        + acctclass (Account Class)
-        + acctstatus (Account Status)
-        + accttype (Account Type)
-        + actioncode (Action Code)
-        + catrate (Category Rate)
-        + department (Department)
-        + fundsource (Funding Source)
-        + letterform (Letter Form)
-        + proccode (Processing Code)
-        + procrule (Processing Rule)
-        + trancode (Transaction Code)
-        + security (Security Setup)
-        + setcode (Settlement Code)
-        + state (US State)
-        + stndcomment (Standard Comment)
-        + stmtmessage (Statement Message)
-        + userrole (User Role)
+        + prvp-op-flds - Provider Portal Operator page fields for setting class "client"
+        + prvp-ex-flds - Provider Portal Executive page fields for setting class "client"
 
 ### View Settings [GET]
-View specific settings.
+View settings.
 
-+ Response 200 (application/json)
++ Request
 
-        [
-            {
-                "foo": "value"
-            }
-        ]
+        /settings/bz/client/3/prvp-op-flds
 
-## Settings [/settings/{system%2Did}/{setting%2Dtype}/{setting%2Did}]
-
-+ Parameters
-    + system%2Did (string) - System Identifier
-        + bz (Blaze)
-        + ph (Pharos)
-    + setting%2Dtype (string) - Setting Type.
-        + acctclass (Account Class)
-        + acctstatus (Account Status)
-        + accttype (Account Type)
-        + actioncode (Action Code)
-        + catrate (Category Rate)
-        + department (Department)
-        + fundsource (Funding Source)
-        + letterform (Letter Form)
-        + proccode (Processing Code)
-        + procrule (Processing Rule)
-        + trancode (Transaction Code)
-        + security (Security Setup)
-        + setcode (Settlement Code)
-        + state (US State)
-        + stndcomment (Standard Comment)
-        + stmtmessage (Statement Message)
-        + userrole (User Role)
-    + setting%2Did (string) - Setting Identifier
-
-### View Setting [GET]
-View details of a setting.
-
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
-                "foo": "value"
+                "type":"base",
+                "settings":
+                    [
+                        {"name":"hasGenericProvider","value":"false"},
+                        {"name":"hasExternalEHRLookup","value":"true"}
+                    ]
+            },
+            {
+                "type":"providerAccountInformation",
+                "settings":
+                    [
+                        {"name":"displayProviderAccountInformation","value":"true"},
+                        {"name":"showTotalLoanAmount","value":"true"},
+                        {"name":"showAccountNumber","value":"true"},
+                        {"name":"showFacilitySelect","value":"true"},
+                        {"name":"showBalance","value":"true"},
+                        {"name":"showPatientFirstName","value":"true"},
+                        {"name":"showPatientLastName","value":"true"},
+                        {"name":"showPatientDOB","value":"true"}
+                    ]
+            },
+            {
+                "type":"guarantorInformation",
+                "settings":
+                    [
+                        {"name":"displayGuarantorInformation","value":"true"},
+                        {"name":"showGuarantorFirstName","value":"true"},
+                        {"name":"showGuarantorLastName","value":"true"},
+                        {"name":"showGuarantorDOB","value":"true"}
+                    ]
+            },
+            {
+                "type":"estimatedPaymentCalculator",
+                "settings":
+                    [
+                        {"name":"displayEstimatedPaymentCalculator","value":"true"},
+                        {"name":"viewScriptHTML","value":"<div>Paragraph 1 \n Paragraph 2 \n Paragraph 3 \n</div>"},
+                        {"name":"isAmountEditable","value":"true"},
+                        {"name":"showOutreachOption","value":"true"},
+                        {"name":"outreachOptionHTML","value":"<div>Paragraph 1 \n Paragraph 2 \n Paragraph 3 \n</div>"}
+                    ]
+            },
+            {
+                "type":"accessOneActivation",
+                "settings":
+                    [
+                        {"name":"displayAccessOneActivation","value":"true"},
+                        {"name":"showByEmail","value":"true"},
+                        {"name":"showByTextMessage","value":"true"},
+                        {"name":"showByMail","value":"true"},
+                        {"name":"toolTipHTML","value":"<div>Paragraph 1 \n Paragraph 2 \n Paragraph 3 \n</div>"}
+                    ]
             }
         ]
-
+        
 ### Update Setting [PATCH]
 Update a setting value.
 
-+ Response 200 (application/json)
++ Response 200
 
         {
-            "foo": "value"
+            "field1": "value",
+            "field2": "value"
         }
 
 # Group Transactions
 
-## Transaction Collection [/transactions/{system%2Did}/{client%2Did}]
+## Transaction Collection [/v1/transactions/{system%2Did}/{client%2Did}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -761,7 +1335,7 @@ Update a setting value.
 ### Create Transactions [POST]
 Submit a batch of transactions.
 
-+ Request (application/json)
++ Request
 
         [
             {
@@ -769,13 +1343,13 @@ Submit a batch of transactions.
             }
         ]
 
-+ Response 201 (application/json)
++ Response 201
 
     + Headers
         
             Location: /transactions/bz/2/3
 
-## Batch Collection [/transactions/{system%2Did}/{client%2Did}/{batch%2Did}]
+## Batch Collection [/v1/transactions/{system%2Did}/{client%2Did}/{batch%2Did}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -787,15 +1361,20 @@ Submit a batch of transactions.
 ### View Batch [GET]
 View a batch of transactions.
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
                 "foo": "value"
             }
         ]
+        
+### Update Batch [PATCH]
+Update batch of transactions.
 
-## Transaction [/transactions/{system%2Did}/{client%2Did}/{batch%2Did}/{transaction%2Did}]
++ Response 204
+
+## Transaction [/v1/transactions/{system%2Did}/{client%2Did}/{batch%2Did}/{transaction%2Did}]
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -808,7 +1387,7 @@ View a batch of transactions.
 ### View Transaction [GET]
 View a single transaction.
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
@@ -824,11 +1403,11 @@ Update a single transaction.
 ### Delete Transaction [DELETE]
 Delete a single transaction.
 
-+ Response 204 (applicatin/json)
++ Response 204
 
 # Group Users
 
-## User [/users/{system%2Did}/{user%2Did}]
+## User [/v1/users/{system%2Did}/{user%2Did}]
 Create, view, update or delete an online user account.
 
 + Parameters
@@ -839,7 +1418,7 @@ Create, view, update or delete an online user account.
 
 ### Create User [POST]
 
-+ Response 204 (application/json)
++ Response 204
 
 + Parameters
     + system%2Did (string) - System Identifier
@@ -849,7 +1428,7 @@ Create, view, update or delete an online user account.
 
 ### View User [GET]
 
-+ Response 200 (application/json)
++ Response 200
 
         [
             {
@@ -865,7 +1444,7 @@ Create, view, update or delete an online user account.
         + ph (Pharos)
     + user%2Did (string) - User identifier
 
-+ Response 204 (application/json)
++ Response 204
 
 ### Delete User [DELETE]
 
@@ -875,9 +1454,9 @@ Create, view, update or delete an online user account.
         + ph (Pharos)
     + user%2Did (string) - User identifier
 
-+ Response 204 (application/json)
++ Response 204
 
-## Activate User [/users/activate/{system%2Did}/{user%2Did}]
+## Activate User [/v1/users/activate/{system%2Did}/{user%2Did}]
 Activate a user's online account.
 
 + Parameters
