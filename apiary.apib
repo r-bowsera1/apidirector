@@ -71,7 +71,8 @@ Create an AccessOne account.
             ],
             "totalAmount":0,
             "program":"Choice/HChoice/Flex/HFlex/Outreach/HOutreach",
-            "activationPreference":"mail/email/phone/mobile/sms"
+            "activationPreference":"mail/email/phone/mobile/sms",
+            "userId":"penny@generalhospital.org"
         }
 
 + Response 201
@@ -84,11 +85,10 @@ Create an AccessOne account.
     
             {
                 "clientId": 1,
-                "account": {
-                    "id": 2,
-                    "number": "987654321",
-                    "status": "Pending Activation"
-                },
+                "id": 2,
+                "number": "987654321",
+                "status": "Pending Activation",
+                "canAddCharge":"true",
                 "guarantor": {
                     "firstName": "Jane",
                     "lastName": "Plain",
@@ -246,11 +246,10 @@ View an AccessOne account. POST sensitive data to lookup account.
 
         {
             "clientId": 1,
-            "account": {
-                "id": 1,
-                "number": "123456789",
-                "status": "Pending Activation"
-            },
+            "id": 2,
+            "number": "987654321",
+            "status": "Pending Activation",
+            "canAddCharge":"true",
             "guarantor": {
                 "firstName": "Jack",
                 "lastName": "Black",
@@ -313,11 +312,10 @@ View, update or delete an AccessOne account.
 
         {
             "clientId": 1,
-            "account": {
-                "id": 1,
-                "number": "123456789",
-                "status": "Pending Activation"
-            },
+            "id": 2,
+            "number": "987654321",
+            "status": "Pending Activation",
+            "canAddCharge":"true",
             "guarantor": {
                 "firstName": "Jack",
                 "lastName": "Black",
@@ -1162,16 +1160,19 @@ Create a provider account for an AccessOne account.
 
 + Request
 
-        [
-            {
-                "facilityId":1,
-                "providerAccountNumber":"5678",
-                "providerAccountBalance":20.00,
-                "firstName":"Gertrude",
-                "lastName":"Kraft",
-                "dateOfBirth":"1950-01-22"
-            }
-        ]
+        {
+            [
+                {
+                    "facilityId":1,
+                    "providerAccountNumber":"5678",
+                    "providerAccountBalance":20.00,
+                    "firstName":"Gertrude",
+                    "lastName":"Kraft",
+                    "dateOfBirth":"1950-01-22",
+                    "userId":"penny@generalhospital.org"
+                }
+            ]
+        }
             
 + Response 201
 
