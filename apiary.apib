@@ -26,53 +26,56 @@ Create an AccessOne account.
 + Request
 
         {
+            "systemId":"bz",
+            "clientId":99,
             "guarantor": {
-                "firstName":"",
-                "lastName":"",
-                "dateOfBirth":"",
+                "firstName":"Johnny",
+                "lastName":"Good",
+                "dateOfBirth":"2000-01-01",
                 "address": {
-                    "address1":"",
-                    "address2":"",
-                    "address3":"",
-                    "city":"",
-                    "state":"",
-                    "zipCode":"",
-                    "county":"",
-                    "country":""
-                },
+                        "address1":"123 First St",
+                        "address2":"Apt A",
+                        "address3":"",
+                        "city":"Charlotte",
+                        "state":"NC",
+                        "zipCode":"28202",
+                        "county":"",
+                        "country":""
+                    },
                 "contact": [
-                       {
+                        {
                         "type":"email",
-                        "value":""
-                       },
-                       {
-                        "type":"phone",
-                        "value":""
-                       },
-                       {
-                        "type":"mobile",
-                        "value":""
-                       },
-                       {
-                        "type":"sms",
-                        "value":""
-                       }
-                ]
+                        "value":"johnnyb9191@mailinator.com"
+                        },
+                        {
+                        "type":"phone1",
+                        "value":"555-555-8989"
+                        },
+                        {
+                        "type":"phone2",
+                        "value":"555-888-9999"
+                        },
+                        {
+                        "type":"mobilephone",
+                        "value":"555-777-4123"
+                        }
+                    ]
             },
             "providerAccounts": [
-                {
-                    "facilityId":0,
-                    "providerAccountNumber":"",
-                    "providerAccountBalance":0,
-                    "firstName":"",
-                    "lastName":"",
-                    "dateOfBirth":""
-                }
-            ],
-            "totalAmount":0,
-            "program":"Choice/HChoice/Flex/HFlex/Outreach/HOutreach",
-            "activationPreference":"mail/email/phone/mobile/sms",
-            "userId":"penny@generalhospital.org"
+                    {
+                        "facilityId":123,
+                        "providerAccountNumber":"987987987987",
+                        "providerAccountBalance":50.00,
+                        "firstName":"Johnny",
+                        "lastName":"Good",
+                        "dateOfBirth":"2000-01-01",
+                        "userId":"rbowser"
+                    }
+                ],
+            "totalAmount":50.00,
+            "program":"Choice",
+            "activationPreference":"email",
+            "userId":"penny@example.com"
         }
 
 + Response 201
@@ -137,11 +140,10 @@ Get all accounts for a given client.
         [
             {
                 "clientId": 1,
-                "account": {
-                    "id": 1,
-                    "number": "123456789",
-                    "status": "Pending Activation"
-                },
+                "id": 2,
+                "number": "987654321",
+                "status": "Pending Activation",
+                "canAddCharge":"true",
                 "guarantor": {
                     "firstName": "Jack",
                     "lastName": "Black",
@@ -183,11 +185,10 @@ Get all accounts for a given client.
             },
             {
                 "clientId": 1,
-                "account": {
-                    "id": 2,
-                    "number": "987654321",
-                    "status": "Pending Activation"
-                },
+                "id": 3,
+                "number": "987654321",
+                "status": "Pending Activation",
+                "canAddCharge":"true",
                 "guarantor": {
                     "firstName": "Jane",
                     "lastName": "Plain",
@@ -246,7 +247,7 @@ View an AccessOne account. POST sensitive data to lookup account.
 
         {
             "clientId": 1,
-            "id": 2,
+            "id": 4,
             "number": "987654321",
             "status": "Pending Activation",
             "canAddCharge":"true",
@@ -312,7 +313,7 @@ View, update or delete an AccessOne account.
 
         {
             "clientId": 1,
-            "id": 2,
+            "id": 5,
             "number": "987654321",
             "status": "Pending Activation",
             "canAddCharge":"true",
@@ -1159,19 +1160,39 @@ View all provider accounts for an AccessOne account.
 Create a provider account for an AccessOne account.
 
 + Request
-
+        
         {
-            [
-                {
-                    "facilityId":1,
-                    "providerAccountNumber":"5678",
-                    "providerAccountBalance":20.00,
-                    "firstName":"Gertrude",
-                    "lastName":"Kraft",
-                    "dateOfBirth":"1950-01-22",
-                    "userId":"penny@generalhospital.org"
-                }
-            ]
+            "totalBalance":1000.23,
+            "providerAccounts":
+                [
+                    {
+                        "facilityId":456,
+                        "providerAccountNumber":"11111111",
+                        "providerAccountBalance":50.00,
+                        "firstName":"Johnny",
+                        "lastName":"Good",
+                        "dateOfBirth":"2000-01-01",
+                        "userId":"penny@example.com"
+                    },
+                    {
+                        "facilityId":456,
+                        "providerAccountNumber":"2222222222222",
+                        "providerAccountBalance":50.00,
+                        "firstName":"Johnny",
+                        "lastName":"Good",
+                        "dateOfBirth":"2000-01-01",
+                        "userId":"penny@example.com"
+                    },
+                    {
+                        "facilityId":456,
+                        "providerAccountNumber":"33333333333",
+                        "providerAccountBalance":50.00,
+                        "firstName":"Johnny",
+                        "lastName":"Good",
+                        "dateOfBirth":"2000-01-01",
+                        "userId":"penny@example.com"
+                    }
+                ]
         }
             
 + Response 201
